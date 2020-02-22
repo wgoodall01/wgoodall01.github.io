@@ -1,0 +1,16 @@
+<!DOCTYPE html><head><title>STEM Tetris | William Goodall</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=google-site-verification content=LnmE2jl2ZbHaJqUUMXtcAc4gXfNoRqSqhbWe-I8ziEE><link rel=stylesheet href=/css/main.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Oswald:300|Roboto+Slab:400,700"><link rel=stylesheet href=/css/slant.css><link rel=stylesheet href=/css/project.css><link rel=stylesheet href=/css/github-markdown.css></head><body><div class=slant-body><div class=container><div class=navbar-white><nav class=navbar><a href=/ class=nav-brand>William Goodall</a><a href=/projects class=nav-link>Projects</a><a href=/photography class=nav-link>Photos</a></nav></div><h1 class=slant-heading><a href=https://github.com/MKA-Stem/stem-tetris target=_blank rel=noopener class=project-title>STEM Tetris</a></h1><div><p>Tetris leaderboard for the STEM Team</p><p><a href=https://github.com/MKA-Stem/stem-tetris target=_blank rel=noopener>GitHub</a></p></div></div></div><div class=slant-edge></div><div class="container main-container"><section><h2 class=project-heading>Description</h2><div><p>I made this to have a leaderboard for a fundraising Tetris competition hosted by my school&#39;s STEM Team. It runs on App Engine, with Datastore as the database. The frontend is written in React, and updates live from the server with a WebSocket. Whenever a new score is added from the admin interface, it is automatically added to the leaderboard without any page refresh.</p><p>The idea is that the leaderboard could be projected somewhere, while whoever&#39;s running the competition can run around with a phone putting in scores.</p></div></section><section><h2 class=project-heading>Project Readme</h2><div class=markdown-body><div align=center><h1>stem-tetris</h1></div><div align=center>Tetris leaderboard for the STEM Team</div><h2 id=getting-started>Getting started</h2><p>This project runs on GCP, so to run it locally you will need the <code>gcloud</code> CLI with the Datastore emulator installed. Also, to build the app, you will need <code>webpack</code>, <code>webpack-dev-server</code>, and of course <code>node</code> installed.</p><p>Then:</p><pre><code class=lang-shell># Clone the repo...
+git clone https://github.com/MKA-Stem/stem-tetris.git
+cd stem-tetris
+
+# ... Then start the app.
+yarn dev-db &amp;     # Start the database in the background
+yarn dev-client &amp; # Start webpack-dev-server in the background
+yarn dev-server &amp; # Start the API server in the background
+</code></pre><h2 id=gcp>GCP</h2><p>To deploy to GCP manually, run <code>yarn build</code> before <code>gcloud app deploy</code>. This builds the static frontend.</p><p>This project has Travis set up, so any successful Travis build will push to GCP with <code>client-secret.json</code> for authentication.</p></div></section></div><script>(function(h,o,t,j,a,r){
+	h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+	h._hjSettings={hjid:1129384,hjsv:6};
+	a=o.getElementsByTagName('head')[0];
+	r=o.createElement('script');r.async=1;
+	r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+	a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script></body>

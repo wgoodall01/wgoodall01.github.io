@@ -1,0 +1,31 @@
+<!DOCTYPE html><head><title>Wikipath | William Goodall</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=google-site-verification content=LnmE2jl2ZbHaJqUUMXtcAc4gXfNoRqSqhbWe-I8ziEE><link rel=stylesheet href=/css/main.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Oswald:300|Roboto+Slab:400,700"><link rel=stylesheet href=/css/slant.css><link rel=stylesheet href=/css/project.css><link rel=stylesheet href=/css/github-markdown.css></head><body><div class=slant-body><div class=container><div class=navbar-white><nav class=navbar><a href=/ class=nav-brand>William Goodall</a><a href=/projects class=nav-link>Projects</a><a href=/photography class=nav-link>Photos</a></nav></div><h1 class=slant-heading><a href=https://github.com/wgoodall01/wikipath target=_blank rel=noopener class=project-title>Wikipath</a></h1><div><p>Find the path of links between two Wikipedia articles.</p><p><a href=https://github.com/wgoodall01/wikipath target=_blank rel=noopener>GitHub</a></p></div></div></div><div class=slant-edge></div><div class="container main-container"><section><h2 class=project-heading>Project Readme</h2><div class=markdown-body><h1 id=wikipath>wikipath</h1><p><a href=https://travis-ci.org/wgoodall01/wikipath><img src="https://img.shields.io/travis/wgoodall01/wikipath.svg?style=flat-square" alt=Travis></a><a href=https://codecov.io/gh/wgoodall01/wikipath><img src="https://img.shields.io/codecov/c/github/wgoodall01/wikipath.svg?style=flat-square" alt=Codecov></a><a href=https://codeclimate.com/github/wgoodall01/wikipath><img src="https://img.shields.io/codeclimate/github/wgoodall01/wikipath.svg?style=flat-square" alt="Code Climate"></a></p><p>Find the &#39;six degrees of wikipedia&#39; between any two subjects, also known as the Wiki Game.</p><p>Pick any two Wikipedia articles. Starting at the first, click links until you reach the second. It&#39;s hard to do by hand, but also surprisingly challenging to automate.</p><p>Using an in-memory index of Wikipedia and a bidirectional Dijkstra&#39;s algorithm search, it is possible to very rapidly find the path between any two articles, even when the total number of articles totals around 7 million. Interestingly enough, it will find a path in 6 steps or fewer for pretty much any two articles in Wikipedia.</p><h2 id=examples>Examples</h2><h3 id=web-interface>Web interface</h3><p><img src=https://i.imgur.com/LVfktRR.png alt="Cherry Shrimp to Wilson Greek"></p><p><img src=https://i.imgur.com/GN9wRST.png alt="Grey-headed fruit dove to 118th Pennsylvania Infantry"></p><h3 id=cli>CLI</h3><pre><code>First Article  : Sodium Acetate
+Second Article : Geneva Convention
+
+      Sodium acetate  -&gt;       53
+  Geneva Conventions  &lt;-      940
+
+Searching for path... [done in 0.00s]
+Path:  Sodium acetate &gt; Textile &gt; Bullet &gt; Geneva Conventions
+</code></pre><pre><code>
+First Article  : List of role-playing video games: 2014 to 2015
+Second Article : Barhait (Vidhan Sabha constituency)
+
+List of role-playing video games: 2014 to 2015  -&gt;      101
+Barhait (Vidhan Sabha constituency)             &lt;-        8
+
+Searching for path... [done in 0.04s]
+Path:  
+    List of role-playing video games: 2014 to 2015 
+  &gt; Unrest (video game) 
+  &gt; India 
+  &gt; Bharatiya Janata Party 
+  &gt; Jharkhand Legislative Assembly 
+  &gt; Barhait (Vidhan Sabha constituency)
+</code></pre><h2 id=how-it-works>How it works</h2><p>Wikipath uses a bidirectional implementation of Dijkstra&#39;s algorithm to find the shortest path, via links clicked and redirects followed, between two Wikipedia articles.</p><p>The whole process follows these steps:</p><ol><li><p>It starts with a full, compressed Mediawiki dump. You can get these from <a href=https://dumps.wikimedia.org/ >dumps.wikimedia.org</a>.</p></li><li><p>The first pass, running <code>wikipath index</code>, converts the mediawiki dump to a smaller, compressed binary format which only contains article titles and link destinations. This file is ~15x smaller, and much faster to parse, which causes a ~20x speedup in loading the articles into memory. It parses each of the multistream archive&#39;s bzip streams in parallel for better performance, but this step still takes by far the longest.</p></li><li><p>When starting the program, with <code>wikipath start</code>, it will load that binary file into memory. Each article is allocated a struct of its title and an array of pointers to other articles.</p></li><li><p>To build the index, it fills out the article structs with pointers to other articles. For each article, it will A) fill out an array of article pointers representing the articles it links to, and B) fill out another array of pointers to articles which link to it. The set of textual links are deleted to save memory.</p></li><li><p>To find the path between two articles, it will run Dijkstra&#39;s algorithm bidirectionally between the starting and ending articles. For each article, it will store the path from the start/end node at which the article was originally encountered. If the search encounters an article with a path coming from the opposite direction, it will terminate and return a result.</p></li></ol></div></section></div><script>(function(h,o,t,j,a,r){
+	h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+	h._hjSettings={hjid:1129384,hjsv:6};
+	a=o.getElementsByTagName('head')[0];
+	r=o.createElement('script');r.async=1;
+	r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+	a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');</script></body>
